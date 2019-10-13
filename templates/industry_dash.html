@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+	<title>Dashboard - Industry</title>
+	<style type="text/css">
+		.main_content_industy{
+			background: white;
+			width: 64%;
+			margin-top: 25px;
+			float: left;
+			border-top: 10px solid black;
+			border-radius: 10px;
+			box-shadow:0 4px 8px 0 rgba(0,0,0,0.3);
+		}
+		.recent_content_industry{
+			background: white;
+			width: 35%;
+			margin-top: 25px;
+			border-radius: 10px;
+			border-top: 10px solid black;
+			float: right;
+			box-shadow:0 4px 8px 0 rgba(0,0,0,0.3);
+		}
+		.container{
+			margin-left: : -18px;
+			margin-right: -18px;
+		}
+		.content{
+			padding: 20px;
+			font-weight: bold;
+		}
+		textarea{
+			margin-top:10px;
+			box-shadow:0 4px 8px 0 rgba(0,0,0,0.3);
+			font-size: 16px;
+			margin-bottom: 10px;
+		}
+		input[type=number]{
+			width: 15%;
+		}
+		input[type=date]{
+			width: 50%;
+		}
+		input[type=file]{
+			width: 50%;
+		}
+		h1{
+			background: #FFFF00;
+			padding: 20px;
+			margin-top: -20px;
+			margin-right: -12px;
+			margin-left: -12px;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			box-shadow:0 4px 8px 0 rgba(0,0,0,0.3);
+		}
+		@media only screen and (max-width: 600px){
+			.main_content_industy{
+				background: white;
+				width: 100%;
+			}
+			.recent_content_industry{
+				background: white;
+				height: 500px;
+				width: 100%;
+				box-shadow:0 4px 8px 0 rgba(0,0,0,0.3);
+			}
+			.container{
+				margin: -8px;
+			}
+			.content{
+				padding: 10px;
+			}
+			input[type=number]{
+				width: 30%;
+			}
+			input[type=date]{
+				width: 30%;
+			}
+			input[type=file]{
+				width: 30%;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class = "header"> 
+Craftia
+</div>
+
+<div class = "container">
+<div class = "main_content_industy">
+	<div class= "content">
+		<h1>Post Your Assignment</h1>
+		Task:<br>
+		<input type="text" name="inTask" placeholder="Enter Task Name" style="width: 50%;" required id="task_text"><br>
+		Description:<br>
+		<textarea name="inDescription" rows="5" placeholder="Enter Description" required id="description_text"></textarea><br>
+		Quantity:<br>
+		<input type="number" name="inQuantity" placeholder="Enter Quantity" required id="quantity_text"><br>
+		Deadline:<br>
+		<input type="date" name="inDeadline" placeholder="dd/mm/yy" id="deadline_text"><br>
+		Skills Required:<br>
+		<input type="text" name="inSkills" placeholder="Enter Skills" style="width: 50%;" required id="skills_text"><br>
+		<input type="submit" value="Submit" onclick="saveData()">
+	</div>
+</div>
+<div class= "recent_content_industry">
+	<div class= "content">
+		<h1>Recent Activity</h1>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	function saveData(){
+		var task = document.getElementById("task_text").value;
+		var desc = document.getElementById("description_text").value;
+		var quant = document.getElementById("quantity_text").value;
+		var deadline = document.getElementById("deadline_text").value;
+		var skills = document.getElementById("skills_text").value;
+
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			if (this.status == 200 && this.readyState==4){
+				var res = this.responseText;
+				console.log(res);
+			}
+		};
+		xhttp.open("POST", "industryDBSave?task="+task+"&des="+desc+"&quant="+quant+"&dead="+deadline+"&skill="+skills, true);
+  		xhttp.send();
+	}
+</script>
+</body>
+</html>
